@@ -67,6 +67,7 @@ html,body{height:100%;font-family:'Lora',serif;background:var(--sage);color:var(
 .b-r{background:rgba(139,16,16,.1);color:var(--crimson);border-color:rgba(139,16,16,.25);}
 .b-a{background:rgba(146,112,10,.12);color:var(--gold);border-color:rgba(146,112,10,.3);}
 .b-g{background:var(--green-bg);color:var(--green-ok);border-color:var(--green-bd);}
+.b-ask{background:rgba(100,80,200,.12);color:#6644CC;border-color:rgba(100,80,200,.3);}
 .b-m{background:rgba(139,16,16,.06);color:var(--crimson);opacity:.6;border-color:rgba(139,16,16,.15);}
 .person{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid rgba(139,16,16,.13);}
 .person:last-child{border-bottom:none;padding-bottom:0;}
@@ -168,10 +169,11 @@ html,body{height:100%;font-family:'Lora',serif;background:var(--sage);color:var(
   <div class="hdr-eye">Coordinator Access Only — Private</div>
   <div class="hdr-title">Command<br>Center<em>Natalie & Josiah</em></div>
   <div class="hdr-sub">July 11, 2026 · St. Paul's Lutheran → Love's Club, Brooklyn</div>
+  <div style="font-family:'Lora',serif;font-size:11px;color:var(--yellow);opacity:.6;margin-top:6px;font-style:italic;">Goal: all major planning wrapped by mid-June · Bride is point of contact for most questions until July 10 · Elli Stone owns July 11</div>
   <div class="hdr-row">
-    <span class="hdr-badge">84 days out</span>
+    <span class="hdr-badge" id="days-badge">loading...</span>
     <span class="hdr-badge">~150 guests</span>
-    <span class="hdr-badge">Coordinator: Elli Stone</span>
+    <span class="hdr-badge">Day-of Coordinator: Elli Stone</span>
     <span class="hdr-update">To update: message Natalie's chat with Claude → changes rebuild automatically</span>
   </div>
 </div>
@@ -184,6 +186,7 @@ html,body{height:100%;font-family:'Lora',serif;background:var(--sage);color:var(
   <button class="nb" onclick="show('table')">Table Setup</button>
   <button class="nb" onclick="show('camcorder')">Camcorder</button>
   <button class="nb" onclick="show('ai')">Ask AI</button>
+  <button class="nb" onclick="showBudget()">Budget</button>
 </div>
 
 <div class="pages">
@@ -231,7 +234,48 @@ html,body{height:100%;font-family:'Lora',serif;background:var(--sage);color:var(
 
 <!-- WEEK TIMELINE -->
 <div class="pg pg-sage" id="p-week">
-  <div class="sh">Wedding Week</div>
+  <div class="sh">Planning Timeline</div>
+  <div style="font-family:'Lora',serif;font-size:12px;font-style:italic;color:var(--crimson);opacity:.6;margin-bottom:24px;">Full road to July 11 — month by month, then day by day</div>
+
+  <div class="tl-week-header">Now — April 2026</div>
+  <div style="background:rgba(139,16,16,.07);border:1px solid rgba(139,16,16,.15);padding:12px 14px;margin-bottom:16px;font-family:'Lora',serif;font-size:11px;font-style:italic;color:var(--crimson);opacity:.8;line-height:1.6;">Until July 11, <b>Natalie is the primary planner</b> — coordinating vendors, decor, logistics, and all the moving pieces. Elli Stone joins as Day-of Coordinator on July 11. She's available for ad hoc calls before then but the day-to-day is Natalie (+ Lori Williams co-planning).</div>
+  <div class="tl"><div class="tl-time">✓ Done</div><div class="tl-dot d-g"></div><div><div class="tl-label"><s>Book Brittany Gilbert's flight from Dallas</s></div></div></div>
+  <div class="tl"><div class="tl-time">This Friday</div><div class="tl-dot d-r"></div><div><div class="tl-label"><b>Meeting with DJ Jon Craig</b> — finalize contract · fee confirmed $2,000</div><div class="tl-owner">Natalie · (929) 585-4552</div></div></div>
+  <div class="tl"><div class="tl-time">This Friday</div><div class="tl-dot d-r"></div><div><div class="tl-label"><b>Sign Brittany Gilbert contract</b> — discuss extra hours with Josiah first</div><div class="tl-owner">Natalie · (214) 796-0609</div></div></div>
+  <div class="tl"><div class="tl-time">This Friday</div><div class="tl-dot d-r"></div><div><div class="tl-label"><b>Record video asking Rohan + Finn to be ring bearers</b></div><div class="tl-owner">Natalie + Josiah</div></div></div>
+  <div class="tl"><div class="tl-time">This week</div><div class="tl-dot d-a"></div><div><div class="tl-label">Josiah decides on tuxes</div><div class="tl-owner">Josiah</div></div></div>
+  <div class="tl"><div class="tl-time">This week</div><div class="tl-dot d-a"></div><div><div class="tl-label">Confirm ceremony music plan with Reed Seely — processional song + live setup</div><div class="tl-owner">Natalie + Reed · (321) 961-7237</div></div></div>
+  <div class="tl"><div class="tl-time">This week</div><div class="tl-dot d-a"></div><div><div class="tl-label">Decide bridesmaid situation + ask anyone new</div><div class="tl-owner">Natalie + Josiah conversation first</div></div></div>
+  <div class="tl"><div class="tl-time">April</div><div class="tl-dot d-a"></div><div><div class="tl-label">Finalize ceremony run of show — ritual, speakers, music — with Pastor Matt</div><div class="tl-owner">Natalie + Josiah + Pastor Matt Brown</div></div></div>
+  <div class="tl"><div class="tl-time">April</div><div class="tl-dot d-a"></div><div><div class="tl-label">Settle decor plan — order tablecloths, runners, bench covering, candles, lucky cats</div><div class="tl-owner">Natalie + Lori Williams</div></div></div>
+  <div class="tl"><div class="tl-time">April</div><div class="tl-dot d-a"></div><div><div class="tl-label">Order wedding favors — church fans + any other extras</div><div class="tl-owner">Natalie + Lori</div></div></div>
+  <div class="tl"><div class="tl-time">April</div><div class="tl-dot d-a"></div><div><div class="tl-label">Plan welcome drinks / welcome weekend activities for out-of-towners</div><div class="tl-owner">Natalie</div></div></div>
+  <div class="tl"><div class="tl-time">April</div><div class="tl-dot d-a"></div><div><div class="tl-label">Finalize honeymoon plan</div><div class="tl-owner">Natalie + Josiah</div></div></div>
+  <div class="tl"><div class="tl-time">April</div><div class="tl-dot d-a"></div><div><div class="tl-label">Send invitations — target May 15–20</div><div class="tl-owner">Natalie</div></div></div>
+  <div class="tl"><div class="tl-time">April</div><div class="tl-dot d-a"></div><div><div class="tl-label">Confirm Beverage Captain with Kirby Ann</div><div class="tl-owner">Natalie → Kirby Ann</div></div></div>
+  <div class="tl"><div class="tl-time">April</div><div class="tl-dot d-a"></div><div><div class="tl-label">Assign ceremony setup crew (×3) + ceremony breakdown crew (×3) + reception setup crew (×2)</div><div class="tl-owner">Natalie · try youth group + TaskRabbit</div></div></div>
+  <div class="tl"><div class="tl-time">April</div><div class="tl-dot d-a"></div><div><div class="tl-label">Confirm Kendall Seely as Camcorder Captain + order 2 camcorders + SD cards + batteries</div><div class="tl-owner">Natalie</div></div></div>
+  <div class="tl"><div class="tl-time">April</div><div class="tl-dot d-a"></div><div><div class="tl-label">Decide send-off plan</div><div class="tl-owner">Natalie + Josiah</div></div></div>
+
+  <div class="tl-week-header">May 2026</div>
+  <div class="tl"><div class="tl-time">May</div><div class="tl-dot d-a"></div><div><div class="tl-label"><b>Send invitations</b> — if not done in April</div><div class="tl-owner">Natalie</div></div></div>
+  <div class="tl"><div class="tl-time">May</div><div class="tl-dot d-a"></div><div><div class="tl-label">Bachelorette party</div><div class="tl-owner">Liz + Natalie</div></div></div>
+  <div class="tl"><div class="tl-time">May</div><div class="tl-dot d-r"></div><div><div class="tl-label"><b>Get wedding rings</b></div><div class="tl-owner">Natalie + Josiah</div></div></div>
+  <div class="tl"><div class="tl-time">May</div><div class="tl-dot d-r"></div><div><div class="tl-label"><b>Marriage license</b> — NYC City Clerk, in person, both of you</div><div class="tl-owner">Natalie + Josiah · after May 12</div></div></div>
+  <div class="tl"><div class="tl-time">May</div><div class="tl-dot d-a"></div><div><div class="tl-label">Make vendor payments per contract deadlines</div><div class="tl-owner">Natalie</div></div></div>
+  <div class="tl"><div class="tl-time">May 25</div><div class="tl-dot d-r"></div><div><div class="tl-label">Moxy Williamsburg hotel block release deadline</div><div class="tl-owner">Guests must book by this date</div></div></div>
+  <div class="tl"><div class="tl-time">May</div><div class="tl-dot d-a"></div><div><div class="tl-label">Finalize Inner Child Menu for cocktail hour — cost estimate, ordering plan, display</div><div class="tl-owner">Natalie</div></div></div>
+  <div class="tl"><div class="tl-time">May</div><div class="tl-dot d-a"></div><div><div class="tl-label">Start building Museum of Us gallery box — print placards, frame photos, gather mementos</div><div class="tl-owner">Natalie</div></div></div>
+  <div class="tl"><div class="tl-time">May</div><div class="tl-dot d-a"></div><div><div class="tl-label">Dress one full table with Lori — photograph as setup reference for crew</div><div class="tl-owner">Natalie + Lori (during June visit)</div></div></div>
+
+  <div class="tl-week-header">June 2026</div>
+  <div class="tl"><div class="tl-time">June</div><div class="tl-dot d-a"></div><div><div class="tl-label">Final vendor confirmations — all timing + headcount sent</div><div class="tl-owner">Elli Stone</div></div></div>
+  <div class="tl"><div class="tl-time">June</div><div class="tl-dot d-a"></div><div><div class="tl-label">Make prompt card rings for camcorders — 4 colors, 2 sets</div><div class="tl-owner">Natalie</div></div></div>
+  <div class="tl"><div class="tl-time">June</div><div class="tl-dot d-a"></div><div><div class="tl-label">Prep all labeled bins for DIY supplies (church bin vs reception bin)</div><div class="tl-owner">Natalie + Lori</div></div></div>
+  <div class="tl"><div class="tl-time">June</div><div class="tl-dot d-a"></div><div><div class="tl-label">Prep tip envelopes — labeled + filled for each vendor</div><div class="tl-owner">Natalie</div></div></div>
+  <div class="tl"><div class="tl-time">June</div><div class="tl-dot d-a"></div><div><div class="tl-label">Prep notes file box — alphabetical handwritten notes for all guests</div><div class="tl-owner">Natalie</div></div></div>
+  <div class="tl"><div class="tl-time">June</div><div class="tl-dot d-a"></div><div><div class="tl-label">Finalize glassware plan — order disposable champagne flutes for church + cocktail hour</div><div class="tl-owner">Natalie</div></div></div>
+  <div class="tl"><div class="tl-time">Late June</div><div class="tl-dot d-a"></div><div><div class="tl-label">Send full run of show to Elli, DJ, all team leads</div><div class="tl-owner">Natalie + Elli Stone</div></div></div>
 
   <div class="tl-week-header">Monday July 6</div>
   <div class="tl"><div class="tl-time">This week</div><div class="tl-dot d-r"></div><div><div class="tl-label">Sign Brittany Gilbert photography contract</div><div class="tl-owner">Natalie · (214) 796-0609</div></div></div>
@@ -425,6 +469,72 @@ html,body{height:100%;font-family:'Lora',serif;background:var(--sage);color:var(
 </div>
 </div>
 
+<!-- BUDGET -->
+<div class="pg pg-sage" id="p-budget" style="display:none">
+  <div class="sh">Budget</div>
+  <div id="budget-locked">
+    <div style="text-align:center;padding:40px 20px;">
+      <div style="font-family:'Playfair Display',serif;font-size:22px;font-style:italic;color:var(--gold);margin-bottom:16px;">Private — enter password</div>
+      <input type="password" id="budget-pw" class="ai-inp" placeholder="Password" style="max-width:240px;display:block;margin:0 auto 12px;" onkeydown="if(event.key==='Enter')checkBudgetPw()">
+      <button class="ai-btn" onclick="checkBudgetPw()">Enter</button>
+      <div id="budget-pw-err" style="color:var(--crimson);font-size:11px;font-style:italic;margin-top:8px;display:none">Incorrect password</div>
+    </div>
+  </div>
+  <div id="budget-content" style="display:none">
+    <div class="stats" style="grid-template-columns:repeat(3,1fr)">
+      <div class="stat"><div class="stat-n">$25,095</div><div class="stat-l">Total estimated</div></div>
+      <div class="stat"><div class="stat-n">$14,000</div><div class="stat-l">Natalie's parents</div></div>
+      <div class="stat"><div class="stat-n" style="color:var(--crimson)">$11,095</div><div class="stat-l">Remaining</div></div>
+    </div>
+
+    <div class="shi" style="margin-top:0">Venue & ceremony</div>
+    <div class="row"><div class="rdot d-g"></div><div class="row-body"><div class="row-label"><b>Reception venue — Love's Club</b></div><div class="row-sub">Main venue fee · 48.19% paid</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$8,300</div></div>
+    <div class="row"><div class="rdot d-g"></div><div class="row-body"><div class="row-label"><b>Church — St. Paul's Lutheran</b></div><div class="row-sub">Ceremony location · paid</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$300</div></div>
+    <div class="row"><div class="rdot d-a"></div><div class="row-body"><div class="row-label"><b>Pastor fee</b></div><div class="row-sub">Officiant · not yet paid</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$500</div></div>
+
+    <div class="shi">Food & beverage</div>
+    <div class="row"><div class="rdot d-g"></div><div class="row-body"><div class="row-label"><b>Dinner catering — A Shen Yuen</b></div><div class="row-sub">Chinese food · not yet paid</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$1,800</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Late night supplies</b></div><div class="row-sub">Boxes, bags, extras</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$120</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Alcohol program</b></div><div class="row-sub">Beer, wine, cocktails, Skrewball</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$2,000</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Bar supplies</b></div><div class="row-sub">Ice, cups, garnishes</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$300</div></div>
+
+    <div class="shi">Vendors</div>
+    <div class="row"><div class="rdot d-g"></div><div class="row-body"><div class="row-label"><b>Photographer — Brittany Gilbert</b></div><div class="row-sub">Plane ticket + 3 extra hours · plane ticket paid</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$1,260</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>DJ / Band</b></div><div class="row-sub">TBD — Jon Craig pending</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$2,000</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Videographer</b></div><div class="row-sub">Camcorder plan — minimal cost</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$200</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Staffing — food team</b></div><div class="row-sub">2–3 helpers</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$500</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Staffing — beverage team</b></div><div class="row-sub">1–2 helpers</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$500</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Ceremony breakdown team</b></div><div class="row-sub">Stipend</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$100</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Coordinator — Elli Stone</b></div><div class="row-sub">Rehearsal + day-of + ad hoc</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$1,000</div></div>
+
+    <div class="shi">Decor & florals</div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Ceremony decor</b></div><div class="row-sub">Candles, fabric, fans, etc.</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$350</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Reception table decor</b></div><div class="row-sub">Tablecloths, runners, candles</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$500</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Buffet decor</b></div><div class="row-sub">Steamers, trays, lighting</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$200</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Place settings</b></div><div class="row-sub">Containers, napkins, chopsticks, stamp</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$350</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>DIY flowers</b></div><div class="row-sub">Trader Joe's</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$450</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Floral supplies</b></div><div class="row-sub">Tape, vases, shears, ribbon</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$50</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Printing</b></div><div class="row-sub">Programs, signage</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$100</div></div>
+
+    <div class="shi">Equipment & misc</div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Chafing + fuel</b></div><div class="row-sub">Buffet heating</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$125</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Serving utensils</b></div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$50</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Lighting</b></div><div class="row-sub">Red bulb, LED candles</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$60</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Power setup</b></div><div class="row-sub">Extension cords, strips</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$30</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Transportation</b></div><div class="row-sub">Ubers, misc</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$100</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Marriage license</b></div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$50</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Tips</b></div><div class="row-sub">Vendors + helpers</div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$500</div></div>
+    <div class="row"><div class="rdot d-m"></div><div class="row-body"><div class="row-label"><b>Contingency fund</b></div></div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">$500</div></div>
+
+    <div class="shi">Rehearsal dinner</div>
+    <div style="background:rgba(139,16,16,.08);border:1px solid rgba(139,16,16,.15);padding:16px;border-radius:4px;margin-top:4px;">
+      <div style="font-family:'Playfair Display',serif;font-size:17px;font-style:italic;color:var(--gold);margin-bottom:10px;">Arte Restaurant — semi-private dinner</div>
+      <div class="row" style="padding:8px 0"><div class="rdot d-a"></div><div class="row-body"><div class="row-label"><b>Total dinner cost</b></div><div class="row-sub">Best semi-private price in New York — negotiated</div></div><div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--gold)">$4,000+</div></div>
+      <div class="row" style="padding:8px 0"><div class="rdot d-g"></div><div class="row-body"><div class="row-label"><b>Clagett family contribution</b></div></div><div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--gold)">$2,500</div></div>
+      <div class="row" style="padding:8px 0;border-bottom:none"><div class="rdot d-r"></div><div class="row-body"><div class="row-label"><b>Natalie + Josiah covering</b></div></div><div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--crimson)">$2,600</div></div>
+    </div>
+  </div>
+</div>
 </div><!-- pages -->
 </div><!-- shell -->
 
@@ -489,6 +599,7 @@ const team=[
   {init:'RW',name:'Ryan Williams',role:'Usher',phone:'—',tags:['ceremony'],ok:false,note:`Bride's brother. At church doors 3:45PM — greet guests, distribute programs, guide seating.`},
   {init:'CC',name:'Caleb Clagett',role:`Usher — groom's brother`,phone:'—',tags:['ceremony'],ok:false,note:`At church doors 3:45PM — greet guests, distribute programs, guide seating.`},
   {init:'SC',name:'Samuel Clagett',role:`Usher — groom's brother`,phone:'—',tags:['ceremony'],ok:false,note:`At church doors 3:45PM — greet guests, distribute programs, guide seating.`},
+  {init:'AC',name:'Anna Clagett',role:'Mother of the Groom',phone:'(615) 438-8299',tags:['ceremony','reception'],ok:true,note:`Misc help with ordering, fabric, invites, and other logistics. Contributing $2,500 toward rehearsal dinner.`},
   {init:'?',name:'Beverage Captain',role:'TBD — waiting on Kirby Ann',phone:'—',tags:['reception'],ok:false,tbd:true,note:`Manages bar setup, restocking, and Skrewball shot tray at ~10:30PM.`},
   {init:'?',name:'Jon Craig (DJ)',role:'Pending pricing',phone:'(929) 585-4552',tags:['reception'],ok:false,tbd:true,note:`Venue reveal 6:30PM, dance floor 8PM, Paul's surprise song timing TBD, send-off 11:20PM. Needs: first dance song, last song, cocktail hour plan.`},
   {init:'?',name:'Ceremony Setup x3',role:'TBD — Friday morning, church',phone:'—',tags:['ceremony'],ok:false,tbd:true,note:`String floating candles, lay aisle runner, hang balcony votives, tie pew ribbons. ~1.5 hrs. OPEN — volunteer or TaskRabbit.`},
@@ -718,7 +829,11 @@ function renderTasks(filter){
   updateProgress();
 }
 
-function toggleTask(i){tasks[i].done=!tasks[i].done;renderTasks(taskFilter);updateProgress();}
+function toggleTask(i){
+  tasks[i].done=!tasks[i].done;
+  renderTasks(taskFilter);
+  updateProgress();
+}
 function filterTasks(f,btn){
   taskFilter=f;
   document.querySelectorAll('#p-tasks .fp').forEach(b=>b.classList.remove('on'));
@@ -741,10 +856,41 @@ function show(name){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   document.getElementById('p-'+name).classList.add('active');
   document.querySelectorAll('.nb').forEach((b,i)=>{
-    b.classList.toggle('on',['overview','team','week','tasks','table','camcorder','ai'][i]===name);
+    b.classList.toggle('on',['overview','team','week','tasks','table','camcorder','ai','budget'][i]===name);
   });
   document.querySelector('.pages').scrollTop=0;
 }
+
+function showBudget(){
+  show('budget');
+  // Reset lock state each time
+  document.getElementById('budget-locked').style.display='block';
+  document.getElementById('budget-content').style.display='none';
+  document.getElementById('budget-pw').value='';
+  document.getElementById('budget-pw-err').style.display='none';
+}
+
+function checkBudgetPw(){
+  const pw = document.getElementById('budget-pw').value;
+  if(pw === 'july11'){
+    document.getElementById('budget-locked').style.display='none';
+    document.getElementById('budget-content').style.display='block';
+  } else {
+    document.getElementById('budget-pw-err').style.display='block';
+    document.getElementById('budget-pw').value='';
+  }
+}
+
+// Live day countdown
+function updateDaysCountdown(){
+  const wedding = new Date('2026-07-11');
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const diff = Math.ceil((wedding - today) / (1000*60*60*24));
+  const el = document.getElementById('days-badge');
+  if(el) el.textContent = diff > 0 ? diff + ' days out' : diff === 0 ? 'Today!' : 'Married!';
+}
+updateDaysCountdown();
 
 function openVol(roleName){
   document.getElementById('vol-role-field').value=roleName||'';
