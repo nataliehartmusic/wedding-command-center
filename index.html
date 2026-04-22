@@ -187,6 +187,7 @@ html,body{height:100%;font-family:'Lora',serif;background:var(--sage);color:var(
   <button class="nb" onclick="show('camcorder')">Camcorder</button>
   <button class="nb" onclick="show('ai')">Ask AI</button>
   <button class="nb" onclick="showBudget()">Budget</button>
+  <button class="nb" onclick="show('ideas')">Submit Idea</button>
 </div>
 
 <div class="pages">
@@ -269,6 +270,7 @@ html,body{height:100%;font-family:'Lora',serif;background:var(--sage);color:var(
   <div class="tl"><div class="tl-time">May</div><div class="tl-dot d-a"></div><div><div class="tl-label">Dress one full table with Lori — photograph as setup reference for crew</div><div class="tl-owner">Natalie + Lori (during June visit)</div></div></div>
 
   <div class="tl-week-header">June 2026</div>
+  <div class="tl"><div class="tl-time">Late May<br>or early June</div><div class="tl-dot d-a"></div><div><div class="tl-label"><b>Anna + Sarah + Lori craft trip</b> — organize all DIY materials + decor into clearly labeled bins for wedding weekend delivery. Ideally done before June 15 so everything is packed and ready.</div><div class="tl-owner">Anna Clagett + Sarah + Lori Williams · coordinate timing</div></div></div>
   <div class="tl"><div class="tl-time">June</div><div class="tl-dot d-a"></div><div><div class="tl-label">Final vendor confirmations — all timing + headcount sent</div><div class="tl-owner">Elli Stone</div></div></div>
   <div class="tl"><div class="tl-time">June</div><div class="tl-dot d-a"></div><div><div class="tl-label">Make prompt card rings for camcorders — 4 colors, 2 sets</div><div class="tl-owner">Natalie</div></div></div>
   <div class="tl"><div class="tl-time">June</div><div class="tl-dot d-a"></div><div><div class="tl-label">Prep all labeled bins for DIY supplies (church bin vs reception bin)</div><div class="tl-owner">Natalie + Lori</div></div></div>
@@ -533,6 +535,29 @@ html,body{height:100%;font-family:'Lora',serif;background:var(--sage);color:var(
       <div class="row" style="padding:8px 0"><div class="rdot d-g"></div><div class="row-body"><div class="row-label"><b>Clagett family contribution</b></div></div><div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--gold)">$2,500</div></div>
       <div class="row" style="padding:8px 0;border-bottom:none"><div class="rdot d-r"></div><div class="row-body"><div class="row-label"><b>Natalie + Josiah covering</b></div></div><div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--crimson)">$2,600</div></div>
     </div>
+  </div>
+</div>
+<!-- SUBMIT IDEA -->
+<div class="pg pg-burgundy" id="p-ideas" style="display:none">
+  <div class="sh" style="color:var(--yellow)">Submit an<br>idea</div>
+  <div style="font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--yellow);opacity:.7;margin-bottom:24px;">Have a suggestion, idea, or question for the bride? Send it directly to Natalie.</div>
+
+  <div class="ai-outer">
+    <div class="ai-head">Drop it here</div>
+    <div class="ai-sub">Ideas, suggestions, offers to help, questions — anything. Goes straight to Natalie's inbox.</div>
+    <form id="idea-form" action="https://formspree.io/f/myklnnzp" method="POST" style="display:flex;flex-direction:column;gap:10px;">
+      <input type="text" name="name" placeholder="Your name" class="ai-inp" required>
+      <input type="text" name="role" placeholder="Your role (e.g. Kirby Ann — Food Captain)" class="ai-inp">
+      <textarea name="message" placeholder="Your idea or question..." class="ai-inp" rows="5" style="resize:vertical;" required></textarea>
+      <input type="hidden" name="_subject" value="Wedding Command Center — New Idea Submitted">
+      <input type="hidden" name="_replyto" value="nataliehartmusic@gmail.com">
+      <button type="submit" class="ai-btn" style="align-self:flex-start;padding:12px 28px;">Send to Natalie</button>
+    </form>
+    <div id="idea-success" style="display:none;margin-top:16px;font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--yellow);opacity:.85;">Sent! Natalie will see it soon.</div>
+  </div>
+
+  <div style="margin-top:20px;font-family:'Lora',serif;font-size:10px;font-style:italic;color:var(--yellow);opacity:.4;text-align:center;">
+    Goes directly to nataliehartmusic@gmail.com
   </div>
 </div>
 </div><!-- pages -->
@@ -856,7 +881,7 @@ function show(name){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   document.getElementById('p-'+name).classList.add('active');
   document.querySelectorAll('.nb').forEach((b,i)=>{
-    b.classList.toggle('on',['overview','team','week','tasks','table','camcorder','ai','budget'][i]===name);
+    b.classList.toggle('on',['overview','team','week','tasks','table','camcorder','ai','budget','ideas'][i]===name);
   });
   document.querySelector('.pages').scrollTop=0;
 }
@@ -916,6 +941,34 @@ renderTeam('all');
 renderTasks('all');
 renderCam();
 updateProgress();
+
+// Idea form handler
+const ideaForm = document.getElementById('idea-form');
+if(ideaForm){
+  ideaForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const btn = ideaForm.querySelector('button[type=submit]');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      const res = await fetch(ideaForm.action, {
+        method: 'POST',
+        body: new FormData(ideaForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if(res.ok){
+        ideaForm.style.display = 'none';
+        document.getElementById('idea-success').style.display = 'block';
+      } else {
+        btn.textContent = 'Try again';
+        btn.disabled = false;
+      }
+    } catch(err){
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+    }
+  });
+}
 </script>
 </body>
 </html>
