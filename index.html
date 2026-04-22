@@ -472,7 +472,7 @@ html,body{height:100%;font-family:'Lora',serif;background:var(--sage);color:var(
 </div>
 
 <!-- BUDGET -->
-<div class="pg pg-sage" id="p-budget" style="display:none">
+<div class="pg pg-sage" id="p-budget">
   <div class="sh">Budget</div>
   <div id="budget-locked">
     <div style="text-align:center;padding:40px 20px;">
@@ -538,7 +538,7 @@ html,body{height:100%;font-family:'Lora',serif;background:var(--sage);color:var(
   </div>
 </div>
 <!-- SUBMIT IDEA -->
-<div class="pg pg-burgundy" id="p-ideas" style="display:none">
+<div class="pg pg-burgundy" id="p-ideas">
   <div class="sh" style="color:var(--yellow)">Submit an<br>idea</div>
   <div style="font-family:'Lora',serif;font-size:13px;font-style:italic;color:var(--yellow);opacity:.7;margin-bottom:24px;">Have a suggestion, idea, or question for the bride? Send it directly to Natalie.</div>
 
@@ -889,10 +889,14 @@ function show(name){
 function showBudget(){
   show('budget');
   // Reset lock state each time
-  document.getElementById('budget-locked').style.display='block';
-  document.getElementById('budget-content').style.display='none';
-  document.getElementById('budget-pw').value='';
-  document.getElementById('budget-pw-err').style.display='none';
+  const locked = document.getElementById('budget-locked');
+  const content = document.getElementById('budget-content');
+  if(locked) locked.style.display='block';
+  if(content) content.style.display='none';
+  const pw = document.getElementById('budget-pw');
+  if(pw) pw.value='';
+  const err = document.getElementById('budget-pw-err');
+  if(err) err.style.display='none';
 }
 
 function checkBudgetPw(){
